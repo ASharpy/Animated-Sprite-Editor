@@ -129,14 +129,14 @@
             // 
             // Select
             // 
+            this.Select.Appearance = System.Windows.Forms.Appearance.Button;
             this.Select.AutoSize = true;
-            this.Select.Location = new System.Drawing.Point(82, 36);
+            this.Select.Location = new System.Drawing.Point(87, 41);
             this.Select.Name = "Select";
-            this.Select.Size = new System.Drawing.Size(80, 17);
+            this.Select.Size = new System.Drawing.Size(77, 23);
             this.Select.TabIndex = 0;
-            this.Select.Text = "checkBox1";
+            this.Select.Text = "Select Sprite";
             this.Select.UseVisualStyleBackColor = true;
-            this.Select.CheckedChanged += new System.EventHandler(this.Select_CheckedChanged);
             // 
             // Form1
             // 

@@ -84,15 +84,19 @@ namespace Animated_Sprite_Editor
 
         private void SpriteSheet_Paint(object sender, PaintEventArgs e)
         {
-            if (startPoint.X > 0 && startPoint.Y > 0 && endPoint.X > 0 && endPoint.Y > 0)
+            if (Select.Checked == true)
             {
 
 
-                e.Graphics.DrawRectangle(Pens.Blue, new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y));
+                if (startPoint.X > 0 && startPoint.Y > 0 && endPoint.X > 0 && endPoint.Y > 0)
+                {
 
+
+                    e.Graphics.DrawRectangle(Pens.Blue, new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y));
+
+                }
             }
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             SpriteSheet.Refresh();
@@ -105,7 +109,7 @@ namespace Animated_Sprite_Editor
 
         private void Select_CheckedChanged(object sender, EventArgs e)
         {
-
+         
         }
     }
 }
