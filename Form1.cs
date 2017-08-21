@@ -16,6 +16,7 @@ namespace Animated_Sprite_Editor
         private Point endPoint = new Point();
 
 
+
         public Form1()
         {
             InitializeComponent();
@@ -52,20 +53,20 @@ namespace Animated_Sprite_Editor
 
         private void SpriteSheet_Click(object sender, EventArgs e)
         {
-
         }
 
         private void SpriteSheet_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Right)
             {
                 startPoint = e.Location;
+              
             }
         }
 
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Right)
             {
                 endPoint = e.Location;
             }
@@ -75,11 +76,12 @@ namespace Animated_Sprite_Editor
 
         private void SpriteSheet_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Right)
             {
                 endPoint = e.Location;
+            
             }
-           
+            
         }
 
         private void SpriteSheet_Paint(object sender, PaintEventArgs e)
@@ -90,9 +92,9 @@ namespace Animated_Sprite_Editor
 
                 if (startPoint.X > 0 && startPoint.Y > 0 && endPoint.X > 0 && endPoint.Y > 0)
                 {
+                    Rectangle rect = new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
 
-
-                    e.Graphics.DrawRectangle(Pens.Blue, new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y));
+                    e.Graphics.DrawRectangle(Pens.Blue, rect);
 
                 }
             }
@@ -111,5 +113,20 @@ namespace Animated_Sprite_Editor
         {
          
         }
+
+        private void copyImage(Rectangle imageRect)
+        {
+            Bitmap bm = new Bitmap(endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
+
+            using (Graphics GR = Graphics.FromImage(bm))
+            {
+                Rectangle dest_rect = new Rectangle(0, 0, imageRect.Width, imageRect.Height);
+                GR.DrawImage(SpriteSheet.Image, dest_rect, imageRect, GraphicsUnit.Pixel);
+            }
+
+            Clipboard.SetImage(bm);
+        }
+
     }
+
 }
