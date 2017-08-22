@@ -94,6 +94,8 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(175, 756);
             this.panel1.TabIndex = 4;
+            this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel1_DragDrop);
+            this.panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel1_DragEnter);
             // 
             // panel2
             // 
@@ -121,6 +123,7 @@
             // 
             this.SpriteSheet.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.SpriteSheet.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SpriteSheet.Cursor = System.Windows.Forms.Cursors.Default;
             this.SpriteSheet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SpriteSheet.Location = new System.Drawing.Point(175, 123);
             this.SpriteSheet.Name = "SpriteSheet";
@@ -128,6 +131,8 @@
             this.SpriteSheet.TabIndex = 6;
             this.SpriteSheet.TabStop = false;
             this.SpriteSheet.Click += new System.EventHandler(this.SpriteSheet_Click);
+            this.SpriteSheet.DragDrop += new System.Windows.Forms.DragEventHandler(this.SpriteSheet_DragDrop);
+            this.SpriteSheet.DragEnter += new System.Windows.Forms.DragEventHandler(this.SpriteSheet_DragEnter);
             this.SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteSheet_Paint);
             this.SpriteSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseDown);
             this.SpriteSheet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseMove);
