@@ -36,9 +36,9 @@
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Select = new System.Windows.Forms.CheckBox();
             this.SpriteSheet = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Select = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteSheet)).BeginInit();
@@ -106,6 +106,17 @@
             this.panel2.TabIndex = 5;
             this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
+            // Select
+            // 
+            this.Select.Appearance = System.Windows.Forms.Appearance.Button;
+            this.Select.AutoSize = true;
+            this.Select.Location = new System.Drawing.Point(87, 41);
+            this.Select.Name = "Select";
+            this.Select.Size = new System.Drawing.Size(77, 23);
+            this.Select.TabIndex = 0;
+            this.Select.Text = "Select Sprite";
+            this.Select.UseVisualStyleBackColor = true;
+            // 
             // SpriteSheet
             // 
             this.SpriteSheet.BackColor = System.Drawing.SystemColors.ButtonShadow;
@@ -125,18 +136,6 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // Select
-            // 
-            this.Select.Appearance = System.Windows.Forms.Appearance.Button;
-            this.Select.AutoSize = true;
-            this.Select.Location = new System.Drawing.Point(87, 41);
-            this.Select.Name = "Select";
-            this.Select.Size = new System.Drawing.Size(77, 23);
-            this.Select.TabIndex = 0;
-            this.Select.Text = "Select Sprite";
-            this.Select.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
