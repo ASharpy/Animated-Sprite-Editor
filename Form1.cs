@@ -15,6 +15,10 @@ namespace Animated_Sprite_Editor
         private Point startPoint = new Point();
         private Point endPoint = new Point();
 
+        private Bitmap OrigSpriteSheet = null;
+        private bool selectedArea = false;
+        private Bitmap selectedSpite = null;
+        private Graphics selectedG = null;
 
 
         public Form1()
@@ -43,7 +47,7 @@ namespace Animated_Sprite_Editor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,29 +61,72 @@ namespace Animated_Sprite_Editor
 
         private void SpriteSheet_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
-                startPoint = e.Location;
-              
+                OrigSpriteSheet = new Bitmap(SpriteSheet.Image);
+                this.KeyPreview = true;
+
+                if (OrigSpriteSheet != null)
+                {
+                    
+
+                    selectedArea = true;
+                    startPoint = e.Location;
+
+                    selectedSpite = new Bitmap(OrigSpriteSheet);
+                    selectedG = Graphics.FromImage(selectedSpite);
+                    SpriteSheet.Image = selectedSpite;
+                } 
             }
         }
 
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (!selectedArea)
+            {
+                return;
+            }
+            if (e.Button == MouseButtons.Left)
             {
                 endPoint = e.Location;
+                selectedG.DrawImage(OrigSpriteSheet, 0, 0);
+
+                using (Pen pen = new Pen(Color.Red))
+                {
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+
+                    Rectangle rect = new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
+
+                  selectedG.DrawRectangle(pen, rect);
+                }
             }
-          
+            SpriteSheet.Refresh();
 
         }
 
         private void SpriteSheet_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
-                endPoint = e.Location;
-            
+                if (!selectedArea)
+                {
+                    return;
+                }
+
+                selectedArea = false;
+                selectedSpite = null;
+                selectedG = null;
+                SpriteSheet.Image = OrigSpriteSheet;
+                SpriteSheet.Refresh();
+
+               // endPoint = e.Location;
+
+                Rectangle rect = new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
+
+                if ((rect.Width > 0) && (rect.Height > 0))
+                {
+                    MessageBox.Show(rect.ToString());
+                }
             }
             
         }
@@ -92,9 +139,7 @@ namespace Animated_Sprite_Editor
 
                 if (startPoint.X > 0 && startPoint.Y > 0 && endPoint.X > 0 && endPoint.Y > 0)
                 {
-                    Rectangle rect = new Rectangle(startPoint.X, startPoint.Y, endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
-
-                    e.Graphics.DrawRectangle(Pens.Blue, rect);
+                   
 
                 }
             }
