@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Animated_Sprite_Editor
 {
     public partial class Form1 : Form
@@ -33,8 +34,11 @@ namespace Animated_Sprite_Editor
         // global blank rectangle to avoid the need to create multiple rectangles
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
 
+        List<Image> gifs = new List<Image>();
 
-        PictureBox picBox = new PictureBox();
+        private bool imageDragged = false;
+
+        private int timer = 0;
 
         public Form1()
         {
@@ -117,6 +121,7 @@ namespace Animated_Sprite_Editor
                 SpriteSheet.Image = OrigSpriteSheet;
                 SpriteSheet.Refresh();
 
+                imageDragged = true;
 
                 copyImage(rect);
 
@@ -234,41 +239,6 @@ namespace Animated_Sprite_Editor
                 Math.Abs(Point1.X - Point2.X), Math.Abs(Point1.Y - Point2.Y));
         }
 
-
-      /*  private void SpriteSheet_DragDrop(object sender, DragEventArgs e)
-        {
-            float fgds = 45;
-        }*/
-
-        //private void panel1_DragEnter(object sender, DragEventArgs e)
-        //{
-        //    if (e.Data.GetDataPresent(DataFormats.Bitmap))
-        //    {
-        //        e.Effect = DragDropEffects.Copy;
-        //    }
-        //    else
-        //    {
-        //        e.Effect = DragDropEffects.None;
-        //    }
-        //}
-
-        //private void panel1_DragDrop(object sender, DragEventArgs e)
-        //{
-        //    PictureBox picBox = new PictureBox();
-
-        //    picBox.Width = 50;
-
-        //    picBox.Height = 50;
-
-
-
-        //    panel1.Controls.Add(picBox);
-
-        //   picBox.Image = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
-        //}
-
-        /// Gets the correct mouse position for an image that has been transformed
-        /// returns a new point of the correct mouse position>
         private Point MousePos()
         {
             Point controlrelative = SpriteSheet.PointToClient(MousePosition);
@@ -288,23 +258,35 @@ namespace Animated_Sprite_Editor
 
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
-
-            picBox = new PictureBox();
-
-            //MessageBox.Show("grr");
-
-            //picBox.Height = 50;
+            if (imageDragged == true)
+            {
+                imageDragged = false;
 
 
 
-            flowLayoutPanel1.Controls.Add(picBox);
+                PictureBox picBox = new PictureBox();
 
-            picBox.Image = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+               
+               
+               
 
-            picBox.Width = picBox.Image.Size.Width;
+                //picBox.Height = 50;
 
-            picBox.Height = picBox.Image.Size.Height;
-           // picBox.BorderStyle = BorderStyle.Fixed3D;
+
+
+                flowLayoutPanel1.Controls.Add(picBox);
+
+                picBox.Image = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+
+                picBox.Width = picBox.Image.Size.Width;
+
+                picBox.Height = picBox.Image.Size.Height;
+
+                gifs.Add(picBox.Image);
+            }
+
+
+            // picBox.BorderStyle = BorderStyle.Fixed3D;
         }
 
         private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
@@ -323,6 +305,46 @@ namespace Animated_Sprite_Editor
         {
 
         }
+
+        private void play_Click(object sender, EventArgs e)
+        {
+            Animation animation = new Animation();
+
+            animation.Show();
+
+            PictureBox animated = new PictureBox();
+
+            animated.Width = animation.Width;
+            animated.Height = animation.Height;
+
+            animation.Controls.Add(animated);
+
+            for (int i = 0; i < gifs.Capacity; i++)
+            {
+                if (timer == 100)
+                {
+
+
+                    animated.Image = gifs[i];
+
+                    timer = 0;
+                }
+            }
+
+            //  animated.BackColor = Color.Black;
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer++;
+
+          
+
+        }
     }
+
+
+
 
 }

@@ -39,6 +39,7 @@
             this.SpriteSheet = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.play = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteSheet)).BeginInit();
@@ -88,6 +89,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.play);
             this.panel2.Controls.Add(this.Select);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 24);
@@ -119,7 +121,6 @@
             this.SpriteSheet.TabIndex = 6;
             this.SpriteSheet.TabStop = false;
             this.SpriteSheet.Click += new System.EventHandler(this.SpriteSheet_Click);
-            //this.SpriteSheet.DragDrop += new System.Windows.Forms.DragEventHandler(this.SpriteSheet_DragDrop);
             this.SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteSheet_Paint);
             this.SpriteSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseDown);
             this.SpriteSheet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseMove);
@@ -128,6 +129,8 @@
             // timer1
             // 
             this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // flowLayoutPanel1
             // 
@@ -143,6 +146,16 @@
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragEnter);
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
+            // 
+            // play
+            // 
+            this.play.Location = new System.Drawing.Point(220, 21);
+            this.play.Name = "play";
+            this.play.Size = new System.Drawing.Size(75, 23);
+            this.play.TabIndex = 1;
+            this.play.Text = "Play";
+            this.play.UseVisualStyleBackColor = true;
+            this.play.Click += new System.EventHandler(this.play_Click);
             // 
             // Form1
             // 
@@ -180,6 +193,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox Select;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button play;
     }
 }
 
