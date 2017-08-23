@@ -54,7 +54,7 @@ namespace Animated_Sprite_Editor
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     SpriteSheet.Image = Image.FromFile(dlg.FileName);
-                    SpriteSheet.SizeMode = PictureBoxSizeMode.Normal;
+                    SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
 
                 }
             }
@@ -85,6 +85,7 @@ namespace Animated_Sprite_Editor
         {
             if (e.Button == MouseButtons.Left)
             {
+            
                 if (SpriteSheet.Image != null)
                 {
 
@@ -98,7 +99,7 @@ namespace Animated_Sprite_Editor
 
                     selectedArea = true;
 
-                        startPoint = e.Location;
+                    startPoint = MousePos();
 
                         selectedSpite = new Bitmap(OrigSpriteSheet);
                         selectedG = Graphics.FromImage(selectedSpite);
@@ -107,6 +108,12 @@ namespace Animated_Sprite_Editor
             }
             if (e.Button == MouseButtons.Right)
             {
+                selectedArea = false;
+                selectedSpite = null;
+                selectedG = null;
+                SpriteSheet.Image = OrigSpriteSheet;
+                SpriteSheet.Refresh();
+
                 copyImage(rect);
 
                 SpriteSheet.DoDragDrop(Clipboard.GetImage(), DragDropEffects.Copy | DragDropEffects.Move);
@@ -137,7 +144,7 @@ namespace Animated_Sprite_Editor
                     {
                         pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
 
-                        endPoint = e.Location;
+                        endPoint = MousePos();
                         
 
                         rect = makeRectangle(startPoint, endPoint);
@@ -160,15 +167,10 @@ namespace Animated_Sprite_Editor
             //{
             //    if (!selectedArea)
             //    {
-            //        return;
-            //    }
+            ///       return;
+              //  }
 
-            //    selectedArea = false;
-            //    selectedSpite = null;
-            //    selectedG = null;
-            //    SpriteSheet.Image = OrigSpriteSheet;
-                SpriteSheet.Refresh();
-
+      
 
                
 
@@ -245,21 +247,38 @@ namespace Animated_Sprite_Editor
             }
         }
 
-        private void SpriteSheet_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.Bitmap))
-            {
-                e.Effect = DragDropEffects.Copy;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
+        //private void SpriteSheet_DragEnter(object sender, DragEventArgs e)
+        //{
+        //    if (e.Data.GetDataPresent(DataFormats.Bitmap))
+        //    {
+        //        e.Effect = DragDropEffects.Copy;
+        //    }
+        //    else
+        //    {
+        //        e.Effect = DragDropEffects.None;
+        //    }
+        //}
 
         private void panel1_DragDrop(object sender, DragEventArgs e)
         {
+            panel1.BackgroundImage = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+        }
 
+        private Point MousePos()
+        {
+            Point controlrelative = SpriteSheet.PointToClient(MousePosition);
+
+            Size imageSize = SpriteSheet.Image.Size;
+
+            Size PicBoxSize = SpriteSheet.Size;
+
+
+            float X = ((float)imageSize.Width / (float)PicBoxSize.Width) * controlrelative.X ;
+
+            float Y = ((float)imageSize.Height / (float)PicBoxSize.Height) * controlrelative.Y;
+
+
+            return new Point(Math.Abs((int)X), Math.Abs((int)Y));
         }
     }
 

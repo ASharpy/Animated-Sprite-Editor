@@ -87,6 +87,7 @@
             // 
             // panel1
             // 
+            this.panel1.AllowDrop = true;
             this.panel1.BackColor = System.Drawing.SystemColors.MenuBar;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -132,7 +133,7 @@
             this.SpriteSheet.TabStop = false;
             this.SpriteSheet.Click += new System.EventHandler(this.SpriteSheet_Click);
             this.SpriteSheet.DragDrop += new System.Windows.Forms.DragEventHandler(this.SpriteSheet_DragDrop);
-            this.SpriteSheet.DragEnter += new System.Windows.Forms.DragEventHandler(this.SpriteSheet_DragEnter);
+          //  this.SpriteSheet.DragEnter += new System.Windows.Forms.DragEventHandler(this.SpriteSheet_DragEnter);
             this.SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteSheet_Paint);
             this.SpriteSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseDown);
             this.SpriteSheet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseMove);
