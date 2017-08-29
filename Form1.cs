@@ -41,6 +41,8 @@ namespace Animated_Sprite_Editor
 
         MagickImage image = new MagickImage();
 
+        PictureBox animated = new PictureBox();
+
         MagickImageCollection collection = new MagickImageCollection();
 
 
@@ -322,7 +324,7 @@ namespace Animated_Sprite_Editor
         {
 
 
-            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+           
 
 
             // collection.Optimize();
@@ -335,7 +337,7 @@ namespace Animated_Sprite_Editor
 
             animation.Show();
 
-            PictureBox animated = new PictureBox();
+           
 
             animated.Width = animation.Width;
             animated.Height = animation.Height;
