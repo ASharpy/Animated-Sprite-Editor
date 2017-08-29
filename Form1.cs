@@ -41,11 +41,11 @@ namespace Animated_Sprite_Editor
 
         MagickImageCollection collection = new MagickImageCollection();
 
-        private bool imageDragged = false;
+
 
        
 
-        private int timer = 0;
+      
 
         public Form1()
         {
@@ -139,7 +139,7 @@ namespace Animated_Sprite_Editor
                 SpriteSheet.Image = OrigSpriteSheet;
                 SpriteSheet.Refresh();
 
-                imageDragged = true;
+               
 
                 copyImage(rect);
 
@@ -193,22 +193,6 @@ namespace Animated_Sprite_Editor
         // resets the rectangle when the mouse is released
         private void SpriteSheet_MouseUp(object sender, MouseEventArgs e)
         {
-            //if (e.Button == MouseButtons.Left)
-            //{
-            //    if (!selectedArea)
-            //    {
-            ///       return;
-            //  }
-
-           
-
-
-
-            //}
-
-
-
-
         }
 
 
@@ -220,7 +204,7 @@ namespace Animated_Sprite_Editor
             {
 
             }
-            //  SpriteSheet.Refresh();
+          
 
 
         }
@@ -240,7 +224,11 @@ namespace Animated_Sprite_Editor
 
         private void copyImage(Rectangle imageRect)
         {
-            Bitmap bm = new Bitmap(endPoint.X - startPoint.X, endPoint.Y - startPoint.Y);
+            int X = Math.Abs(endPoint.X - startPoint.X);
+
+            int Y = Math.Abs(endPoint.Y - startPoint.Y);
+
+            Bitmap bm = new Bitmap(X,Y);
 
             using (Graphics GR = Graphics.FromImage(bm))
             {
@@ -277,36 +265,16 @@ namespace Animated_Sprite_Editor
 
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
-            if (imageDragged == true)
-            {
-                imageDragged = false;
-
-
+         
 
                 PictureBox picBox = new PictureBox();
-                // picBox.Dispose();
-                // System.Threading.Thread.Sleep(1);
 
-
-
-
-                //picBox.Height = 50;
-
-                
 
                 flowLayoutPanel1.Controls.Add(picBox);
-
-                picBox.Image = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
-
-               // picBox.Dispose();
+              
                 Debug.WriteLine(sender.ToString());
 
-                
-                picBox.Width = picBox.Image.Size.Width;
-
-                picBox.Height = picBox.Image.Size.Height;
-
-                gifs.Add(picBox.Image);
+          
 
                 Bitmap sprite = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 
@@ -318,7 +286,7 @@ namespace Animated_Sprite_Editor
 
                 collection.Add(image);
 
-            }
+            
 
 
             // picBox.BorderStyle = BorderStyle.Fixed3D;
@@ -383,7 +351,6 @@ namespace Animated_Sprite_Editor
             animated.Image = ok;
 
             animated.Refresh();
-            //  animated.BackColor = Color.Black;
 
         }
 
