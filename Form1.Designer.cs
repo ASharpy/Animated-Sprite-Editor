@@ -35,11 +35,11 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.play = new System.Windows.Forms.Button();
             this.Select = new System.Windows.Forms.CheckBox();
             this.SpriteSheet = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.play = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteSheet)).BeginInit();
@@ -98,6 +98,16 @@
             this.panel2.TabIndex = 5;
             this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
+            // play
+            // 
+            this.play.Location = new System.Drawing.Point(220, 21);
+            this.play.Name = "play";
+            this.play.Size = new System.Drawing.Size(75, 23);
+            this.play.TabIndex = 1;
+            this.play.Text = "Play";
+            this.play.UseVisualStyleBackColor = true;
+            this.play.Click += new System.EventHandler(this.play_Click);
+            // 
             // Select
             // 
             this.Select.Appearance = System.Windows.Forms.Appearance.Button;
@@ -146,16 +156,6 @@
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragEnter);
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
-            // 
-            // play
-            // 
-            this.play.Location = new System.Drawing.Point(220, 21);
-            this.play.Name = "play";
-            this.play.Size = new System.Drawing.Size(75, 23);
-            this.play.TabIndex = 1;
-            this.play.Text = "Play";
-            this.play.UseVisualStyleBackColor = true;
-            this.play.Click += new System.EventHandler(this.play_Click);
             // 
             // Form1
             // 

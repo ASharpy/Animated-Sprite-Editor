@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ImageMagick;
+using System.Diagnostics;
 
 namespace Animated_Sprite_Editor
 {
@@ -50,7 +51,6 @@ namespace Animated_Sprite_Editor
         {
             InitializeComponent();
             SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(SpriteSheet_Paint);
-            SpriteSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(SpriteSheet_MouseDown);
         }
 
         /* 
@@ -284,19 +284,24 @@ namespace Animated_Sprite_Editor
 
 
                 PictureBox picBox = new PictureBox();
+                // picBox.Dispose();
+                // System.Threading.Thread.Sleep(1);
 
-               
-               
-               
+
+
 
                 //picBox.Height = 50;
 
-
+                
 
                 flowLayoutPanel1.Controls.Add(picBox);
 
                 picBox.Image = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 
+               // picBox.Dispose();
+                Debug.WriteLine(sender.ToString());
+
+                
                 picBox.Width = picBox.Image.Size.Width;
 
                 picBox.Height = picBox.Image.Size.Height;
@@ -305,14 +310,14 @@ namespace Animated_Sprite_Editor
 
                 Bitmap sprite = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 
-                Bitmap resizeSprite = resizeImage(sprite, new Size(500, 500));
+                Bitmap resizeSprite = resizeImage(sprite, new Size(200, 200));
 
                 image = new MagickImage(resizeSprite);
 
                 
 
                 collection.Add(image);
-                
+
             }
 
 
@@ -359,9 +364,14 @@ namespace Animated_Sprite_Editor
             animated.Height = animation.Height;
             // animated.BackColor = Color.Black;
 
-            
+            for (int i = 0; i < collection.Count; i++)
+            {
+                collection[i].AnimationDelay = 10;
+            }
 
             collection.Write(@".\megaman.gif");
+
+            collection.Optimize();
 
             animation.Controls.Add(animated);
 
