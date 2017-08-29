@@ -35,6 +35,8 @@ namespace Animated_Sprite_Editor
         // global blank rectangle to avoid the need to create multiple rectangles
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
 
+        Animation animation = new Animation();
+
         List<Image> gifs = new List<Image>();
 
         MagickImage image = new MagickImage();
@@ -43,9 +45,9 @@ namespace Animated_Sprite_Editor
 
 
 
-       
 
-      
+
+
 
         public Form1()
         {
@@ -102,7 +104,7 @@ namespace Animated_Sprite_Editor
                 selectedG = null;
                 SpriteSheet.Image = OrigSpriteSheet;
                 SpriteSheet.Refresh();
-                
+
                 // SpriteSheet.Image = null;
                 selectedArea = false;
             }
@@ -122,7 +124,7 @@ namespace Animated_Sprite_Editor
 
 
 
-                   
+
 
                     startPoint = MousePos();
 
@@ -139,7 +141,7 @@ namespace Animated_Sprite_Editor
                 SpriteSheet.Image = OrigSpriteSheet;
                 SpriteSheet.Refresh();
 
-               
+
 
                 copyImage(rect);
 
@@ -152,9 +154,9 @@ namespace Animated_Sprite_Editor
         //if the mouse is moving and the left mouse button is being pressed in draw a rectangle based on the starting mouse position and the current mouse position
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
-          
 
-          
+
+
             if (Select.Checked == true)
             {
 
@@ -204,7 +206,7 @@ namespace Animated_Sprite_Editor
             {
 
             }
-          
+
 
 
         }
@@ -228,7 +230,7 @@ namespace Animated_Sprite_Editor
 
             int Y = Math.Abs(endPoint.Y - startPoint.Y);
 
-            Bitmap bm = new Bitmap(X,Y);
+            Bitmap bm = new Bitmap(X, Y);
 
             using (Graphics GR = Graphics.FromImage(bm))
             {
@@ -265,28 +267,35 @@ namespace Animated_Sprite_Editor
 
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
-         
-
-                PictureBox picBox = new PictureBox();
 
 
-                flowLayoutPanel1.Controls.Add(picBox);
-              
-                Debug.WriteLine(sender.ToString());
+            PictureBox picBox = new PictureBox();
 
-          
 
-                Bitmap sprite = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+            flowLayoutPanel1.Controls.Add(picBox);
 
-                Bitmap resizeSprite = resizeImage(sprite, new Size(200, 200));
+            //Debug.WriteLine(sender.ToString());
 
-                image = new MagickImage(resizeSprite);
 
-                
 
-                collection.Add(image);
+            Bitmap sprite = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 
-            
+            Bitmap resizeSprite = resizeImage(sprite, new Size(200, 200));
+
+
+            picBox.Width = sprite.Size.Width;
+
+            picBox.Height = sprite.Size.Height;
+
+            picBox.Image = sprite;
+
+            image = new MagickImage(resizeSprite);
+
+
+
+            collection.Add(image);
+
+
 
 
             // picBox.BorderStyle = BorderStyle.Fixed3D;
@@ -314,15 +323,15 @@ namespace Animated_Sprite_Editor
 
 
             string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-           
-
-           // collection.Optimize();
-
-            
-         
 
 
-            Animation animation = new Animation();
+            // collection.Optimize();
+
+
+
+
+
+
 
             animation.Show();
 
@@ -343,16 +352,17 @@ namespace Animated_Sprite_Editor
 
             animation.Controls.Add(animated);
 
-             Image ok = Image.FromFile(@".\megaman.gif");
-            
-               
-             
+            Image ok = Image.FromFile(@".\megaman.gif");
+
 
             animated.Image = ok;
 
-            animated.Refresh();
+
+
+      
 
         }
+
 
 
         private Bitmap resizeImage(Bitmap image, Size size)
@@ -362,12 +372,17 @@ namespace Animated_Sprite_Editor
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-           // timer++;
+            // timer++;
 
-          
+
 
         }
+
+     
+
     }
+
+
 
 
 
