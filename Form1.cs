@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ImageMagick;
 
 namespace Animated_Sprite_Editor
 {
@@ -36,7 +36,13 @@ namespace Animated_Sprite_Editor
 
         List<Image> gifs = new List<Image>();
 
+        MagickImage image = new MagickImage();
+
+        MagickImageCollection collection = new MagickImageCollection();
+
         private bool imageDragged = false;
+
+       
 
         private int timer = 0;
 
@@ -90,6 +96,18 @@ namespace Animated_Sprite_Editor
          */
         private void SpriteSheet_MouseDown(object sender, MouseEventArgs e)
         {
+            if (selectedArea == true)
+            {
+                selectedSpite = null;
+                selectedG = null;
+                SpriteSheet.Image = OrigSpriteSheet;
+                SpriteSheet.Refresh();
+                
+                // SpriteSheet.Image = null;
+                selectedArea = false;
+            }
+
+
             if (e.Button == MouseButtons.Left)
             {
 
@@ -104,7 +122,7 @@ namespace Animated_Sprite_Editor
 
 
 
-                    selectedArea = true;
+                   
 
                     startPoint = MousePos();
 
@@ -134,16 +152,18 @@ namespace Animated_Sprite_Editor
         //if the mouse is moving and the left mouse button is being pressed in draw a rectangle based on the starting mouse position and the current mouse position
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!selectedArea)
-            {
-                return;
-            }
+          
+
+          
             if (Select.Checked == true)
             {
 
 
                 if (e.Button == MouseButtons.Left)
                 {
+
+                    selectedArea = true;
+
                     selectedG.DrawImage(OrigSpriteSheet, 0, 0);
 
 
@@ -180,8 +200,7 @@ namespace Animated_Sprite_Editor
             ///       return;
             //  }
 
-
-
+           
 
 
 
@@ -283,6 +302,17 @@ namespace Animated_Sprite_Editor
                 picBox.Height = picBox.Image.Size.Height;
 
                 gifs.Add(picBox.Image);
+
+                Bitmap sprite = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+
+                Bitmap resizeSprite = resizeImage(sprite, new Size(500, 500));
+
+                image = new MagickImage(resizeSprite);
+
+                
+
+                collection.Add(image);
+                
             }
 
 
@@ -308,6 +338,17 @@ namespace Animated_Sprite_Editor
 
         private void play_Click(object sender, EventArgs e)
         {
+
+
+            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+           
+
+           // collection.Optimize();
+
+            
+         
+
+
             Animation animation = new Animation();
 
             animation.Show();
@@ -316,28 +357,35 @@ namespace Animated_Sprite_Editor
 
             animated.Width = animation.Width;
             animated.Height = animation.Height;
+            // animated.BackColor = Color.Black;
+
+            
+
+            collection.Write(@".\megaman.gif");
 
             animation.Controls.Add(animated);
 
-            for (int i = 0; i < gifs.Capacity; i++)
-            {
-                if (timer == 100)
-                {
+             Image ok = Image.FromFile(@".\megaman.gif");
+            
+               
+             
 
+            animated.Image = ok;
 
-                    animated.Image = gifs[i];
-
-                    timer = 0;
-                }
-            }
-
+            animated.Refresh();
             //  animated.BackColor = Color.Black;
 
         }
 
+
+        private Bitmap resizeImage(Bitmap image, Size size)
+        {
+            return (new Bitmap(image, size));
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer++;
+           // timer++;
 
           
 
