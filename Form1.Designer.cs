@@ -40,6 +40,9 @@
             this.SpriteSheet = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.saveASGIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SpriteListDelete = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteSheet)).BeginInit();
@@ -76,6 +79,9 @@
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveASGIFToolStripMenuItem,
+            this.saveImagesToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.saveToolStripMenuItem.Text = "Save Image";
@@ -89,6 +95,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.SpriteListDelete);
             this.panel2.Controls.Add(this.play);
             this.panel2.Controls.Add(this.Select);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -157,6 +164,28 @@
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragEnter);
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
+            // saveASGIFToolStripMenuItem
+            // 
+            this.saveASGIFToolStripMenuItem.Name = "saveASGIFToolStripMenuItem";
+            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveASGIFToolStripMenuItem.Text = "Save AS GIF";
+            // 
+            // saveImagesToolStripMenuItem
+            // 
+            this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveImagesToolStripMenuItem.Text = "Save Images";
+            // 
+            // SpriteListDelete
+            // 
+            this.SpriteListDelete.Location = new System.Drawing.Point(355, 21);
+            this.SpriteListDelete.Name = "SpriteListDelete";
+            this.SpriteListDelete.Size = new System.Drawing.Size(97, 23);
+            this.SpriteListDelete.TabIndex = 2;
+            this.SpriteListDelete.Text = "Delete Sprite List";
+            this.SpriteListDelete.UseVisualStyleBackColor = true;
+            this.SpriteListDelete.Click += new System.EventHandler(this.SpriteListDelete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,6 +223,9 @@
         private System.Windows.Forms.CheckBox Select;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button play;
+        private System.Windows.Forms.ToolStripMenuItem saveASGIFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveImagesToolStripMenuItem;
+        private System.Windows.Forms.Button SpriteListDelete;
     }
 }
 

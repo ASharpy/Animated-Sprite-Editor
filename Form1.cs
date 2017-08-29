@@ -35,6 +35,8 @@ namespace Animated_Sprite_Editor
         // global blank rectangle to avoid the need to create multiple rectangles
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
 
+        public static Image ok = null;
+
         Animation animation = new Animation();
 
         List<Image> gifs = new List<Image>();
@@ -213,9 +215,6 @@ namespace Animated_Sprite_Editor
 
         }
 
-
-
-
         private void panel2_Click(object sender, EventArgs e)
         {
 
@@ -354,7 +353,7 @@ namespace Animated_Sprite_Editor
 
             animation.Controls.Add(animated);
 
-            Image ok = Image.FromFile(@".\megaman.gif");
+          ok  = Image.FromFile(@".\megaman.gif");
 
 
             animated.Image = ok;
@@ -380,8 +379,13 @@ namespace Animated_Sprite_Editor
 
         }
 
-     
-
+        private void SpriteListDelete_Click(object sender, EventArgs e)
+        {
+           
+                collection.Dispose();
+              
+                animated.Image = null;
+        }
     }
 
 
