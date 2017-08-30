@@ -399,7 +399,7 @@ namespace Animated_Sprite_Editor
 
 
             saveFile.Filter = "GIF files (*.GIF)|*.GIF|All files (*.*)|*.*";
-            saveFile.FileName = "SpriteGif.gif";
+            saveFile.FileName = "SpriteGif";
             saveFile.DefaultExt = "GIF";
             saveFile.FilterIndex = 2;
             saveFile.RestoreDirectory = true;
@@ -415,9 +415,15 @@ namespace Animated_Sprite_Editor
                     string fN = Path.GetFileName(filename);
 
 
+                    
+                    
+
+                    collection.Write(filename + ".gif");
 
 
-                    collection.Write(filename + fN);
+                    File.Delete(filename);
+
+                    //saveFile.FileName = null;
                 }
             }
         }
