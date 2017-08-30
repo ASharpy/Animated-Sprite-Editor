@@ -13,6 +13,8 @@ using System.IO;
 using System.Security.AccessControl;
 
 
+// select index changed
+
 namespace Animated_Sprite_Editor
 {
     public partial class Form1 : Form
