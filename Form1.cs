@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ImageMagick;
 using System.Diagnostics;
+using System.IO;
+using System.Security.AccessControl;
+
 
 namespace Animated_Sprite_Editor
 {
@@ -123,7 +126,7 @@ namespace Animated_Sprite_Editor
 
 
                     OrigSpriteSheet = new Bitmap(SpriteSheet.Image);
-                    this.KeyPreview = true;
+                    
 
 
 
@@ -167,6 +170,10 @@ namespace Animated_Sprite_Editor
 
                 if (e.Button == MouseButtons.Left)
                 {
+                    if (OrigSpriteSheet == null)
+                    {
+                        return;
+                    }
 
                     selectedArea = true;
 
@@ -323,15 +330,10 @@ namespace Animated_Sprite_Editor
         {
 
 
-           
+
 
 
             // collection.Optimize();
-
-
-
-
-
 
 
             animation.Show();
@@ -385,6 +387,39 @@ namespace Animated_Sprite_Editor
                 collection.Dispose();
               
                 animated.Image = null;
+        }
+
+        private void saveASGIFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            //Saving the file to the user location
+            Stream Mystream;
+
+            SaveFileDialog saveFile = new SaveFileDialog();
+
+
+            saveFile.Filter = "GIF files (*.GIF)|*.GIF|All files (*.*)|*.*";
+            saveFile.FileName = "SpriteGif.gif";
+            saveFile.DefaultExt = "GIF";
+            saveFile.FilterIndex = 2;
+            saveFile.RestoreDirectory = true;
+           
+
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                if ((Mystream = saveFile.OpenFile()) != null)
+                {
+                    string filename = saveFile.FileName;
+
+
+                    string fN = Path.GetFileName(filename);
+
+
+
+
+                    collection.Write(filename + fN);
+                }
+            }
         }
     }
 
