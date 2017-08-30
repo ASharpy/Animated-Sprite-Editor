@@ -393,22 +393,19 @@ namespace Animated_Sprite_Editor
         {
 
             //Saving the file to the user location
-            Stream Mystream;
-
-            SaveFileDialog saveFile = new SaveFileDialog();
+           
 
 
-            saveFile.Filter = "GIF files (*.GIF)|*.GIF|All files (*.*)|*.*";
+            FileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = saveFile.Filter = "gif files (*.gif)|*.gif|All files (*.*)|*.*";
             saveFile.FileName = "SpriteGif";
-            saveFile.DefaultExt = "GIF";
+            saveFile.DefaultExt = "gif";
             saveFile.FilterIndex = 2;
             saveFile.RestoreDirectory = true;
-           
 
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                if ((Mystream = saveFile.OpenFile()) != null)
-                {
+                
                     string filename = saveFile.FileName;
 
 
@@ -420,11 +417,15 @@ namespace Animated_Sprite_Editor
 
                     collection.Write(filename + ".gif");
 
+                
+                    // saveFile.Dispose();
 
-                    File.Delete(filename);
+                  
+           
+                    //File.Delete(saveFile.FileName);
 
                     //saveFile.FileName = null;
-                }
+                
             }
         }
     }
