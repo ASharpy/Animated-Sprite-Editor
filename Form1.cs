@@ -71,7 +71,7 @@ namespace Animated_Sprite_Editor
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Title = "Sprite Sheet";
-                dlg.Filter = "Image Files(*.BMP;*.JPG;*.GIF,*.PNG;)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+                dlg.Filter = "Image Files(*.BMP;*.JPG;*.PNG;)|*.BMP;*.JPG;*.PNG|All files (*.*)|*.*";
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
