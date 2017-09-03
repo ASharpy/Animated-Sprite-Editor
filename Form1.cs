@@ -56,8 +56,9 @@ namespace Animated_Sprite_Editor
 
         List<PictureBox> picBox = new List<PictureBox>();
 
-      
 
+
+        
 
         public Form1()
         {
@@ -299,6 +300,8 @@ namespace Animated_Sprite_Editor
 
             picBox[index].Image = sprite;
 
+            picBox[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
+
             image = new MagickImage(resizeSprite);
 
 
@@ -310,10 +313,48 @@ namespace Animated_Sprite_Editor
             sprite.Dispose();
             resizeSprite.Dispose();
 
+
             index++;
+
+
+
 
             // picBox.BorderStyle = BorderStyle.Fixed3D;
         }
+
+
+        private void sprite_MouseDown(object sender, MouseEventArgs e)
+        {
+           
+
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox sprite = (PictureBox)sender;
+                
+
+                int picnum = picBox.IndexOf(sprite);
+
+
+               
+                collection.Remove(collection[picnum]);
+
+
+             
+                picBox.Remove(picBox[picnum]);
+
+               
+                
+                sprite.Dispose();
+                index--;
+            }
+          
+
+            
+            
+
+        }
+
+
 
         private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
         {
@@ -352,7 +393,7 @@ namespace Animated_Sprite_Editor
 
             for (int i = 0; i < collection.Count; i++)
             {
-                collection[i].AnimationDelay = 10;
+                collection[i].AnimationDelay = 300;
             }
 
             collection.Write(@".\megaman.gif");
