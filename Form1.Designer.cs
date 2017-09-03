@@ -73,8 +73,8 @@
             // AddToolStripMenuItem
             // 
             this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-            this.AddToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.AddToolStripMenuItem.Text = "Add Image";
+            this.AddToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.AddToolStripMenuItem.Text = "Add Sprite Sheet";
             this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
@@ -83,14 +83,14 @@
             this.saveASGIFToolStripMenuItem,
             this.saveImagesToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.saveToolStripMenuItem.Text = "Save Image";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.saveToolStripMenuItem.Text = "Save ";
             // 
             // saveASGIFToolStripMenuItem
             // 
             this.saveASGIFToolStripMenuItem.Name = "saveASGIFToolStripMenuItem";
             this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveASGIFToolStripMenuItem.Text = "Save AS GIF";
+            this.saveASGIFToolStripMenuItem.Text = "Save AS gif";
             this.saveASGIFToolStripMenuItem.Click += new System.EventHandler(this.saveASGIFToolStripMenuItem_Click);
             // 
             // saveImagesToolStripMenuItem
@@ -102,8 +102,8 @@
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.removeToolStripMenuItem.Text = "Remove Image";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.removeToolStripMenuItem.Text = "Remove Sprite Sheet";
             // 
             // panel2
             // 
@@ -132,9 +132,9 @@
             // 
             this.play.Location = new System.Drawing.Point(220, 21);
             this.play.Name = "play";
-            this.play.Size = new System.Drawing.Size(75, 23);
+            this.play.Size = new System.Drawing.Size(92, 23);
             this.play.TabIndex = 1;
-            this.play.Text = "Play";
+            this.play.Text = "Play Animation";
             this.play.UseVisualStyleBackColor = true;
             this.play.Click += new System.EventHandler(this.play_Click);
             // 

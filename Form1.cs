@@ -52,10 +52,11 @@ namespace Animated_Sprite_Editor
 
         MagickImageCollection collection = new MagickImageCollection();
 
+        int index = 0;
 
+        List<PictureBox> picBox = new List<PictureBox>();
 
-
-
+      
 
 
         public Form1()
@@ -277,12 +278,11 @@ namespace Animated_Sprite_Editor
 
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
+            PictureBox spritepic = new PictureBox();
 
+            picBox.Add(spritepic);
 
-            PictureBox picBox = new PictureBox();
-
-
-            flowLayoutPanel1.Controls.Add(picBox);
+            flowLayoutPanel1.Controls.Add(picBox[index]);
 
             //Debug.WriteLine(sender.ToString());
 
@@ -293,11 +293,11 @@ namespace Animated_Sprite_Editor
             Bitmap resizeSprite = resizeImage(sprite, new Size(200, 200));
 
 
-            picBox.Width = sprite.Size.Width;
+            picBox[index].Width = sprite.Size.Width;
 
-            picBox.Height = sprite.Size.Height;
+            picBox[index].Height = sprite.Size.Height;
 
-            picBox.Image = sprite;
+            picBox[index].Image = sprite;
 
             image = new MagickImage(resizeSprite);
 
@@ -305,8 +305,12 @@ namespace Animated_Sprite_Editor
 
             collection.Add(image);
 
+            sprite = resizeSprite;
 
+            sprite.Dispose();
+            resizeSprite.Dispose();
 
+            index++;
 
             // picBox.BorderStyle = BorderStyle.Fixed3D;
         }
@@ -325,7 +329,7 @@ namespace Animated_Sprite_Editor
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-
+            
         }
 
         private void play_Click(object sender, EventArgs e)
@@ -363,7 +367,7 @@ namespace Animated_Sprite_Editor
             animated.Image = ok;
 
 
-
+           
       
 
         }
@@ -385,10 +389,20 @@ namespace Animated_Sprite_Editor
 
         private void SpriteListDelete_Click(object sender, EventArgs e)
         {
-           
-                collection.Dispose();
-              
-                animated.Image = null;
+
+            collection.Dispose();
+          
+            index = 0;
+
+            for (int i = 0; i < picBox.Count; i++)
+            {
+                picBox[i].Dispose();
+            }
+
+            picBox.Clear();
+            flowLayoutPanel1.Refresh();
+
+
         }
 
         private void saveASGIFToolStripMenuItem_Click(object sender, EventArgs e)
