@@ -394,7 +394,7 @@ namespace Animated_Sprite_Editor
                 animation = new Animation();
 
 
-                SpriteCollection.Optimize();
+               // SpriteCollection.Optimize();
 
 
 
