@@ -19,9 +19,19 @@ namespace Animated_Sprite_Editor
 
         private void Animation_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form1.ok.Dispose();
+            Form1.deleteFile = true;
 
-            System.IO.File.Delete(@".\megaman.gif");
+        }
+
+        private void Animation_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Animation_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+          
         }
     }
 }

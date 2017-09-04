@@ -89,14 +89,14 @@
             // saveASGIFToolStripMenuItem
             // 
             this.saveASGIFToolStripMenuItem.Name = "saveASGIFToolStripMenuItem";
-            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveASGIFToolStripMenuItem.Text = "Save AS gif";
             this.saveASGIFToolStripMenuItem.Click += new System.EventHandler(this.saveASGIFToolStripMenuItem_Click);
             // 
             // saveImagesToolStripMenuItem
             // 
             this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             // 
             // removeToolStripMenuItem
@@ -169,7 +169,6 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // flowLayoutPanel1
@@ -200,6 +199,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Animated Sprite Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

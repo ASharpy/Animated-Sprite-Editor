@@ -40,28 +40,29 @@ namespace Animated_Sprite_Editor
         // global blank rectangle to avoid the need to create multiple rectangles
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
 
-        public static Image ok = null;
+        private Image SpriteGif = null;
 
-        Animation animation = new Animation();
+        public static bool deleteFile = false;
 
-        List<Image> gifs = new List<Image>();
+        MagickImage MagickSprite = new MagickImage();
 
-        MagickImage image = new MagickImage();
+        PictureBox GifPicBox = null;
 
-        PictureBox animated = new PictureBox();
+        Animation animation = null;
 
-        MagickImageCollection collection = new MagickImageCollection();
+        MagickImageCollection SpriteCollection = new MagickImageCollection();
 
         int index = 0;
 
-        List<PictureBox> picBox = new List<PictureBox>();
+        List<PictureBox> SpriteList = new List<PictureBox>();
 
 
 
-        
+
 
         public Form1()
         {
+           
             InitializeComponent();
             SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(SpriteSheet_Paint);
         }
@@ -117,7 +118,7 @@ namespace Animated_Sprite_Editor
                 SpriteSheet.Refresh();
 
                 // SpriteSheet.Image = null;
-                selectedArea = false;
+                
             }
 
 
@@ -130,12 +131,14 @@ namespace Animated_Sprite_Editor
 
 
                     OrigSpriteSheet = new Bitmap(SpriteSheet.Image);
+
+
+
+                    
                     
 
 
-
-
-
+                    selectedArea = false;
 
                     startPoint = MousePos();
 
@@ -144,19 +147,24 @@ namespace Animated_Sprite_Editor
                     SpriteSheet.Image = selectedSpite;
                 }
             }
+
             if (e.Button == MouseButtons.Right)
             {
-                selectedArea = false;
-                selectedSpite = null;
-                selectedG = null;
-                SpriteSheet.Image = OrigSpriteSheet;
-                SpriteSheet.Refresh();
+                if (OrigSpriteSheet != null && selectedArea == true)
+                {
+                    selectedArea = false;
+                    selectedSpite = null;
+                    selectedG = null;
+                    SpriteSheet.Image = OrigSpriteSheet;
+                    SpriteSheet.Refresh();
 
 
 
-                copyImage(rect);
+                    copyImage(rect);
 
-                SpriteSheet.DoDragDrop(Clipboard.GetImage(), DragDropEffects.Copy | DragDropEffects.Move);
+                    SpriteSheet.DoDragDrop(Clipboard.GetImage(), DragDropEffects.Copy | DragDropEffects.Move);
+                }
+
 
             }
 
@@ -166,7 +174,7 @@ namespace Animated_Sprite_Editor
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
 
-
+           
 
             if (Select.Checked == true)
             {
@@ -179,12 +187,13 @@ namespace Animated_Sprite_Editor
                         return;
                     }
 
+
+                    if (OrigSpriteSheet.Width > 0 && OrigSpriteSheet.Height > 0)
+                    {
+                        selectedG.DrawImage(OrigSpriteSheet, 0, 0);
+                    }
+
                     selectedArea = true;
-
-                    selectedG.DrawImage(OrigSpriteSheet, 0, 0);
-
-
-
 
 
                     using (Pen pen = new Pen(Color.Red))
@@ -210,6 +219,7 @@ namespace Animated_Sprite_Editor
         // resets the rectangle when the mouse is released
         private void SpriteSheet_MouseUp(object sender, MouseEventArgs e)
         {
+            
         }
 
 
@@ -281,9 +291,9 @@ namespace Animated_Sprite_Editor
         {
             PictureBox spritepic = new PictureBox();
 
-            picBox.Add(spritepic);
+            SpriteList.Add(spritepic);
 
-            flowLayoutPanel1.Controls.Add(picBox[index]);
+            flowLayoutPanel1.Controls.Add(SpriteList[index]);
 
             //Debug.WriteLine(sender.ToString());
 
@@ -294,19 +304,19 @@ namespace Animated_Sprite_Editor
             Bitmap resizeSprite = resizeImage(sprite, new Size(200, 200));
 
 
-            picBox[index].Width = sprite.Size.Width;
+            SpriteList[index].Width = sprite.Size.Width;
 
-            picBox[index].Height = sprite.Size.Height;
+            SpriteList[index].Height = sprite.Size.Height;
 
-            picBox[index].Image = sprite;
+            SpriteList[index].Image = sprite;
 
-            picBox[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
+            SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
 
-            image = new MagickImage(resizeSprite);
+            MagickSprite = new MagickImage(resizeSprite);
 
 
 
-            collection.Add(image);
+            SpriteCollection.Add(MagickSprite);
 
             sprite = resizeSprite;
 
@@ -325,32 +335,32 @@ namespace Animated_Sprite_Editor
 
         private void sprite_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
 
             if (e.Button == MouseButtons.Right)
             {
                 PictureBox sprite = (PictureBox)sender;
-                
-
-                int picnum = picBox.IndexOf(sprite);
 
 
-               
-                collection.Remove(collection[picnum]);
+                int picnum = SpriteList.IndexOf(sprite);
 
 
-             
-                picBox.Remove(picBox[picnum]);
 
-               
-                
+                SpriteCollection.Remove(SpriteCollection[picnum]);
+
+
+
+                SpriteList.Remove(SpriteList[picnum]);
+
+
+
                 sprite.Dispose();
                 index--;
             }
-          
 
-            
-            
+
+
+
 
         }
 
@@ -370,47 +380,51 @@ namespace Animated_Sprite_Editor
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
         private void play_Click(object sender, EventArgs e)
         {
 
 
-
-
-
-            // collection.Optimize();
-
-
-            animation.Show();
-
-           
-
-            animated.Width = animation.Width;
-            animated.Height = animation.Height;
-            // animated.BackColor = Color.Black;
-
-            for (int i = 0; i < collection.Count; i++)
+            if (SpriteCollection.Count > 0 && SpriteList.Count > 0)
             {
-                collection[i].AnimationDelay = 300;
+                GifPicBox = new PictureBox();
+
+                animation = new Animation();
+
+
+                // collection.Optimize();
+
+
+
+
+
+                GifPicBox.Width = animation.Width;
+                GifPicBox.Height = animation.Height;
+                // animated.BackColor = Color.Black;
+
+                for (int i = 0; i < SpriteCollection.Count; i++)
+                {
+                    SpriteCollection[i].AnimationDelay = 10;
+                }
+
+                SpriteCollection.Write(@".\megaman.gif");
+
+                //  SpriteCollection.Optimize();
+
+                animation.Controls.Add(GifPicBox);
+
+                SpriteGif = Image.FromFile(@".\megaman.gif");
+
+
+                GifPicBox.Image = SpriteGif;
+
+
+                animation.Show();
+
+
             }
-
-            collection.Write(@".\megaman.gif");
-
-            collection.Optimize();
-
-            animation.Controls.Add(animated);
-
-          ok  = Image.FromFile(@".\megaman.gif");
-
-
-            animated.Image = ok;
-
-
-           
-      
-
         }
 
 
@@ -422,25 +436,40 @@ namespace Animated_Sprite_Editor
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // timer++;
+            if (deleteFile == true)
+            {
+                animation.Dispose();
+                GifPicBox.Dispose();
+                SpriteGif.Dispose();
 
+                System.IO.File.Delete(@".\megaman.gif");
+                deleteFile = false;
+            }
 
+            if (Select.Checked == true)
+            {
+                SpriteSheet.Cursor = Cursors.Cross;
+            }
+            else
+            {
+                SpriteSheet.Cursor = Cursors.Arrow;
+            }
 
         }
 
         private void SpriteListDelete_Click(object sender, EventArgs e)
         {
 
-            collection.Dispose();
-          
+            SpriteCollection.Dispose();
+
             index = 0;
 
-            for (int i = 0; i < picBox.Count; i++)
+            for (int i = 0; i < SpriteList.Count; i++)
             {
-                picBox[i].Dispose();
+                SpriteList[i].Dispose();
             }
 
-            picBox.Clear();
+            SpriteList.Clear();
             flowLayoutPanel1.Refresh();
 
 
@@ -450,7 +479,7 @@ namespace Animated_Sprite_Editor
         {
 
             //Saving the file to the user location
-           
+
 
 
             FileDialog saveFile = new SaveFileDialog();
@@ -462,28 +491,34 @@ namespace Animated_Sprite_Editor
 
             if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                
-                    string filename = saveFile.FileName;
+
+                string filename = saveFile.FileName;
 
 
-                    string fN = Path.GetFileName(filename);
+                string fN = Path.GetFileName(filename);
 
 
-                    
-                    
 
-                    collection.Write(filename + ".gif");
 
-                
-                    // saveFile.Dispose();
 
-                  
-           
-                    //File.Delete(saveFile.FileName);
+                SpriteCollection.Write(filename + ".gif");
 
-                    //saveFile.FileName = null;
-                
+
+                // saveFile.Dispose();
+
+
+
+                //File.Delete(saveFile.FileName);
+
+                //saveFile.FileName = null;
+
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+
         }
     }
 

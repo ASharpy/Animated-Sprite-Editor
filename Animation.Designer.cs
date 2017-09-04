@@ -37,7 +37,9 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Name = "Animation";
             this.Text = "Animation";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Animation_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Animation_FormClosed);
+            this.Load += new System.EventHandler(this.Animation_Load);
             this.ResumeLayout(false);
 
         }
