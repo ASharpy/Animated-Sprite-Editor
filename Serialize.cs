@@ -16,6 +16,7 @@ namespace Animated_Sprite_Editor
 
         private Form1 form = new Form1();
 
+        public  Bitmap spriteImages;
 
 
         public Serialize(){}
@@ -27,6 +28,7 @@ namespace Animated_Sprite_Editor
             {
 
                 Serialize pic = new Serialize();
+                pic.spriteImages = (Bitmap)spriteList[i].Image;
 
                 sprites.Add(pic);
             }

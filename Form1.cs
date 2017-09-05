@@ -11,7 +11,8 @@ using ImageMagick;
 using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
-
+using System.Xml;
+using System.Xml.Serialization;
 
 // select index changed
 
@@ -54,15 +55,15 @@ namespace Animated_Sprite_Editor
 
         int index = 0;
 
-        List<PictureBox> SpriteList = new List<PictureBox>();
+        private List<PictureBox> SpriteList = new List<PictureBox>();
 
+        public List<Image> SerializedList = new List<Image>();
 
-
-
+        List<Serialize> PicList;
 
         public Form1()
         {
-           
+
             InitializeComponent();
             SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(SpriteSheet_Paint);
         }
@@ -82,7 +83,9 @@ namespace Animated_Sprite_Editor
                 {
                     SpriteSheet.Image = Image.FromFile(dlg.FileName);
                     SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
+                    SerializedList.Add(Image.FromFile(dlg.FileName));
 
+                   
                 }
             }
         }
@@ -118,7 +121,7 @@ namespace Animated_Sprite_Editor
                 SpriteSheet.Refresh();
 
                 // SpriteSheet.Image = null;
-                
+
             }
 
 
@@ -134,8 +137,8 @@ namespace Animated_Sprite_Editor
 
 
 
-                    
-                    
+
+
 
 
                     selectedArea = false;
@@ -174,7 +177,7 @@ namespace Animated_Sprite_Editor
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
 
-           
+
 
             if (Select.Checked == true)
             {
@@ -219,7 +222,7 @@ namespace Animated_Sprite_Editor
         // resets the rectangle when the mouse is released
         private void SpriteSheet_MouseUp(object sender, MouseEventArgs e)
         {
-            
+
         }
 
 
@@ -248,7 +251,11 @@ namespace Animated_Sprite_Editor
 
         private void copyImage(Rectangle imageRect)
         {
+
+
+
             int X = Math.Abs(endPoint.X - startPoint.X);
+
 
             int Y = Math.Abs(endPoint.Y - startPoint.Y);
 
@@ -314,9 +321,11 @@ namespace Animated_Sprite_Editor
 
             MagickSprite = new MagickImage(resizeSprite);
 
-
+            SerializedList.Add(sprite);
 
             SpriteCollection.Add(MagickSprite);
+
+
 
             sprite = resizeSprite;
 
@@ -352,7 +361,7 @@ namespace Animated_Sprite_Editor
 
                 SpriteList.Remove(SpriteList[picnum]);
 
-
+                SerializedList.Remove(SerializedList[picnum]);
 
                 sprite.Dispose();
                 index--;
@@ -394,7 +403,7 @@ namespace Animated_Sprite_Editor
                 animation = new Animation();
 
 
-               // SpriteCollection.Optimize();
+                // SpriteCollection.Optimize();
 
 
 
@@ -469,6 +478,13 @@ namespace Animated_Sprite_Editor
                 SpriteList[i].Dispose();
             }
 
+
+            for (int i = 0; i < SerializedList.Count; i++)
+            {
+                SerializedList[i].Dispose();
+            }
+
+            SerializedList.Clear();
             SpriteList.Clear();
             flowLayoutPanel1.Refresh();
 
@@ -520,10 +536,69 @@ namespace Animated_Sprite_Editor
 
 
         }
+
+        public void Serialize()
+        {
+          
+
+        }
+
+        private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            FileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "png files (*.png)|*.png|All files (*.*)|*.*";
+            saveFile.FileName = "Sprites";
+            //saveFile.DefaultExt = "xml";
+            saveFile.FilterIndex = 2;
+            saveFile.RestoreDirectory = true;
+        
+
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                for (int i = 0; i < SpriteList.Count; i++)
+                {
+                    string filePath = Path.Combine(saveFile.FileName, string.Format("sprite{0}.png", i));
+                    SpriteList[i].Image.Save(filePath);
+                }
+
+            }
+          
+
+        //    Serialize serial = new Serialize();
+
+          
+
+        //    serial.serialize(SpriteList);
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void openXmlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+                Serialize serial = new Serialize();
+
+           FileDialog openfile = new OpenFileDialog();
+
+            openfile.Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*";
+
+
+            if (openfile.ShowDialog() == DialogResult.OK)
+            {
+                PicList = serial.Deserialize(openfile);
+            }
+
+
+            SpriteSheet.Image = PicList[0].spriteImages;
+            SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
+           // SerializedList.Add(Image.FromFile(dlg.FileName));
+
+        }
     }
-
-
-
 
 
 
