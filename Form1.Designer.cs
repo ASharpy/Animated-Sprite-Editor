@@ -36,6 +36,7 @@
             this.saveASGIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openXmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.SpriteListDelete = new System.Windows.Forms.Button();
             this.play = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.SpriteSheet = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.openXmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpriteSheet)).BeginInit();
@@ -93,14 +93,14 @@
             // saveASGIFToolStripMenuItem
             // 
             this.saveASGIFToolStripMenuItem.Name = "saveASGIFToolStripMenuItem";
-            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveASGIFToolStripMenuItem.Text = "Save AS gif";
             this.saveASGIFToolStripMenuItem.Click += new System.EventHandler(this.saveASGIFToolStripMenuItem_Click);
             // 
             // saveImagesToolStripMenuItem
             // 
             this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
@@ -109,6 +109,14 @@
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.removeToolStripMenuItem.Text = "Remove Sprite Sheet";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // openXmlToolStripMenuItem
+            // 
+            this.openXmlToolStripMenuItem.Name = "openXmlToolStripMenuItem";
+            this.openXmlToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.openXmlToolStripMenuItem.Text = "Open Xml";
+            this.openXmlToolStripMenuItem.Click += new System.EventHandler(this.openXmlToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -190,13 +198,6 @@
             this.flowLayoutPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragDrop);
             this.flowLayoutPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.flowLayoutPanel1_DragEnter);
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
-            // 
-            // openXmlToolStripMenuItem
-            // 
-            this.openXmlToolStripMenuItem.Name = "openXmlToolStripMenuItem";
-            this.openXmlToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.openXmlToolStripMenuItem.Text = "Open Xml";
-            this.openXmlToolStripMenuItem.Click += new System.EventHandler(this.openXmlToolStripMenuItem_Click);
             // 
             // Form1
             // 

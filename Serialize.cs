@@ -35,7 +35,7 @@ namespace Animated_Sprite_Editor
 
                 Serialize pic = new Serialize();
 
-                pic.spriteImages = Path.GetFileName(filePath);
+                pic.spriteImages = filePath;
 
                 sprites.Add(pic);
             }

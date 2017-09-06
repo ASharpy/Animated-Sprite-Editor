@@ -45,6 +45,8 @@ namespace Animated_Sprite_Editor
 
         public static bool deleteFile = false;
 
+        private bool refresh = false;
+
         MagickImage MagickSprite = new MagickImage();
 
         PictureBox GifPicBox = null;
@@ -57,7 +59,7 @@ namespace Animated_Sprite_Editor
 
         private List<PictureBox> SpriteList = new List<PictureBox>();
 
-        public List<Image> SerializedList = new List<Image>();
+        private List<PictureBox> SerializedList = new List<PictureBox>();
 
         List<Serialize> PicList;
 
@@ -83,7 +85,7 @@ namespace Animated_Sprite_Editor
                 {
                     SpriteSheet.Image = Image.FromFile(dlg.FileName);
                     SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
-                    SerializedList.Add(Image.FromFile(dlg.FileName));
+                    
 
                    
                 }
@@ -321,7 +323,7 @@ namespace Animated_Sprite_Editor
 
             MagickSprite = new MagickImage(resizeSprite);
 
-            SerializedList.Add(sprite);
+           
 
             SpriteCollection.Add(MagickSprite);
 
@@ -455,6 +457,8 @@ namespace Animated_Sprite_Editor
                 deleteFile = false;
             }
 
+            
+
         }
 
         private void SpriteListDelete_Click(object sender, EventArgs e)
@@ -537,16 +541,21 @@ namespace Animated_Sprite_Editor
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-       
 
-            
+
+            SerializedList.Add(SpriteSheet);
+
+            for (int i = 1; i < SpriteList.Count; i++)
+            {
+                SerializedList.Add(SpriteList[i]);
+            }
           
 
           Serialize serial = new Serialize();
 
           
 
-         serial.serialize(SpriteList);
+         serial.serialize(SerializedList);
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -572,7 +581,20 @@ namespace Animated_Sprite_Editor
 
             SpriteSheet.Image = Image.FromFile(PicList[0].spriteImages);
             SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
-           // SerializedList.Add(Image.FromFile(dlg.FileName));
+            // SerializedList.Add(Image.FromFile(dlg.FileName));
+            for (int i = 1; i < SerializedList.Count; i++)
+            {
+                SpriteList.Add(SerializedList[i]);
+            }
+
+            flowLayoutPanel1.Refresh();
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SpriteSheet.Image.Dispose();
+            SpriteSheet.Image = null;
+            SpriteSheet.Refresh();
 
         }
     }
