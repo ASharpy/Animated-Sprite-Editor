@@ -455,15 +455,6 @@ namespace Animated_Sprite_Editor
                 deleteFile = false;
             }
 
-            if (Select.Checked == true)
-            {
-                SpriteSheet.Cursor = Cursors.Cross;
-            }
-            else
-            {
-                SpriteSheet.Cursor = Cursors.Arrow;
-            }
-
         }
 
         private void SpriteListDelete_Click(object sender, EventArgs e)
@@ -546,30 +537,16 @@ namespace Animated_Sprite_Editor
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            FileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "png files (*.png)|*.png|All files (*.*)|*.*";
-            saveFile.FileName = "Sprites";
-            //saveFile.DefaultExt = "xml";
-            saveFile.FilterIndex = 2;
-            saveFile.RestoreDirectory = true;
-        
+       
 
-            if (saveFile.ShowDialog() == DialogResult.OK)
-            {
-                for (int i = 0; i < SpriteList.Count; i++)
-                {
-                    string filePath = Path.Combine(saveFile.FileName, string.Format("sprite{0}.png", i));
-                    SpriteList[i].Image.Save(filePath);
-                }
-
-            }
+            
           
 
-        //    Serialize serial = new Serialize();
+          Serialize serial = new Serialize();
 
           
 
-        //    serial.serialize(SpriteList);
+         serial.serialize(SpriteList);
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -593,7 +570,7 @@ namespace Animated_Sprite_Editor
             }
 
 
-            SpriteSheet.Image = PicList[0].spriteImages;
+            SpriteSheet.Image = Image.FromFile(PicList[0].spriteImages);
             SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
            // SerializedList.Add(Image.FromFile(dlg.FileName));
 

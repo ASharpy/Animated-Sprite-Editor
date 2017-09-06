@@ -16,23 +16,32 @@ namespace Animated_Sprite_Editor
 
         private Form1 form = new Form1();
 
-        public  Bitmap spriteImages;
+        public string spriteImages;
 
 
         public Serialize(){}
 
+        string pathName = Path.GetDirectoryName(Application.ExecutablePath);
 
+        string filePath;
         public void serialize(List<PictureBox> spriteList)
         {
-             for (int i = 0; i < spriteList.Count; i++)
+            for (int i = 0; i < spriteList.Count; i++)
             {
 
+                filePath = Path.Combine(pathName + "\\" + "Saved Sprites", string.Format("image{0}.png", i));
+
+                spriteList[i].Image.Save(filePath);
+
                 Serialize pic = new Serialize();
-                pic.spriteImages = (Bitmap)spriteList[i].Image;
+
+                pic.spriteImages = Path.GetFileName(filePath);
 
                 sprites.Add(pic);
             }
 
+
+       
 
             XmlSerializer mySerializer = new XmlSerializer(typeof(List<Serialize>));
 

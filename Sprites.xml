@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfSerialize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Serialize>
+    <sprites />
+    <spriteImages>image0.png</spriteImages>
+  </Serialize>
+  <Serialize>
+    <sprites />
+    <spriteImages>image1.png</spriteImages>
+  </Serialize>
+  <Serialize>
+    <sprites />
+    <spriteImages>image2.png</spriteImages>
+  </Serialize>
+  <Serialize>
+    <sprites />
+    <spriteImages>image3.png</spriteImages>
+  </Serialize>
+  <Serialize>
+    <sprites />
+    <spriteImages>image4.png</spriteImages>
+  </Serialize>
+</ArrayOfSerialize>
