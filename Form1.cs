@@ -363,7 +363,7 @@ namespace Animated_Sprite_Editor
 
                 SpriteList.Remove(SpriteList[picnum]);
 
-                SerializedList.Remove(SerializedList[picnum]);
+               // SerializedList.Remove(SerializedList[picnum]);
 
                 sprite.Dispose();
                 index--;
@@ -566,9 +566,11 @@ namespace Animated_Sprite_Editor
         private void openXmlToolStripMenuItem_Click(object sender, EventArgs e)
         {
            
-                Serialize serial = new Serialize();
+           Serialize serial = new Serialize();
 
            FileDialog openfile = new OpenFileDialog();
+
+          
 
             openfile.Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*";
 
@@ -579,14 +581,38 @@ namespace Animated_Sprite_Editor
             }
 
 
+           
+
+
             SpriteSheet.Image = Image.FromFile(PicList[0].spriteImages);
             SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
             // SerializedList.Add(Image.FromFile(dlg.FileName));
-            for (int i = 1; i < SerializedList.Count; i++)
+            int j = 1;
+            for (int i = 0; i < PicList.Count - 1; i++)
             {
-                SpriteList.Add(SerializedList[i]);
+                PictureBox serializedPics = new PictureBox();
+
+                
+
+                SpriteList.Add(serializedPics);
+
+                SpriteList[i].Image = Image.FromFile(PicList[j].spriteImages);
+
+                SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
+
+                flowLayoutPanel1.Controls.Add(SpriteList[i]);
+
+                Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
+
+                MagickSprite = new MagickImage(resizeSprite);
+
+                SpriteCollection.Add(MagickSprite);
+
+                index++;
+                j++;
             }
 
+            
             flowLayoutPanel1.Refresh();
         }
 

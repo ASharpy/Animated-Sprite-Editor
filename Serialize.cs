@@ -29,7 +29,7 @@ namespace Animated_Sprite_Editor
             for (int i = 0; i < spriteList.Count; i++)
             {
 
-                filePath = Path.Combine(pathName + "\\" + "Saved Sprites", string.Format("image{0}.png", i));
+                filePath = Path.Combine(pathName, string.Format("image{0}.png", i));
 
                 spriteList[i].Image.Save(filePath);
 

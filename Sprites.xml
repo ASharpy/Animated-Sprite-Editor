@@ -2,18 +2,22 @@
 <ArrayOfSerialize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Serialize>
     <sprites />
-    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated Sprite Editor\bin\Debug\Saved Sprites\image0.png</spriteImages>
+    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated-Sprite-Editor\bin\Debug\image0.png</spriteImages>
   </Serialize>
   <Serialize>
     <sprites />
-    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated Sprite Editor\bin\Debug\Saved Sprites\image1.png</spriteImages>
+    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated-Sprite-Editor\bin\Debug\image1.png</spriteImages>
   </Serialize>
   <Serialize>
     <sprites />
-    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated Sprite Editor\bin\Debug\Saved Sprites\image2.png</spriteImages>
+    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated-Sprite-Editor\bin\Debug\image2.png</spriteImages>
   </Serialize>
   <Serialize>
     <sprites />
-    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated Sprite Editor\bin\Debug\Saved Sprites\image3.png</spriteImages>
+    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated-Sprite-Editor\bin\Debug\image3.png</spriteImages>
+  </Serialize>
+  <Serialize>
+    <sprites />
+    <spriteImages>C:\Users\s171873\Documents\Visual Studio 2015\Projects\Animated-Sprite-Editor\bin\Debug\image4.png</spriteImages>
   </Serialize>
 </ArrayOfSerialize>
