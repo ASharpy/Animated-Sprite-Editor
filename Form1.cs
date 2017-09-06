@@ -474,12 +474,6 @@ namespace Animated_Sprite_Editor
             }
 
 
-            for (int i = 0; i < SerializedList.Count; i++)
-            {
-                SerializedList[i].Dispose();
-            }
-
-            SerializedList.Clear();
             SpriteList.Clear();
             flowLayoutPanel1.Refresh();
 
