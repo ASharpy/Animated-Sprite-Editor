@@ -93,14 +93,14 @@
             // saveASGIFToolStripMenuItem
             // 
             this.saveASGIFToolStripMenuItem.Name = "saveASGIFToolStripMenuItem";
-            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveASGIFToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveASGIFToolStripMenuItem.Text = "Save AS gif";
             this.saveASGIFToolStripMenuItem.Click += new System.EventHandler(this.saveASGIFToolStripMenuItem_Click);
             // 
             // saveImagesToolStripMenuItem
             // 
             this.saveImagesToolStripMenuItem.Name = "saveImagesToolStripMenuItem";
-            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveImagesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveImagesToolStripMenuItem.Text = "Save Images";
             this.saveImagesToolStripMenuItem.Click += new System.EventHandler(this.saveImagesToolStripMenuItem_Click);
             // 
@@ -115,7 +115,7 @@
             // 
             this.openXmlToolStripMenuItem.Name = "openXmlToolStripMenuItem";
             this.openXmlToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.openXmlToolStripMenuItem.Text = "Open Xml";
+            this.openXmlToolStripMenuItem.Text = "Open Gif";
             this.openXmlToolStripMenuItem.Click += new System.EventHandler(this.openXmlToolStripMenuItem_Click);
             // 
             // panel2

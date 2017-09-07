@@ -62,8 +62,6 @@ namespace Animated_Sprite_Editor
 
         private List<PictureBox> SerializedList = new List<PictureBox>();
 
-        List<Serialize> PicList;
-
         public Form1()
         {
 
@@ -538,19 +536,19 @@ namespace Animated_Sprite_Editor
 
 
 
-            SerializedList.Add(SpriteSheet);
+         //   SerializedList.Add(SpriteSheet);
 
-            for (int i = 1; i < SpriteList.Count; i++)
-            {
-                SerializedList.Add(SpriteList[i]);
-            }
+         //   for (int i = 1; i < SpriteList.Count; i++)
+         //   {
+         //       SerializedList.Add(SpriteList[i]);
+         //   }
           
 
-          Serialize serial = new Serialize();
+         // Serialize serial = new Serialize();
 
           
 
-         serial.serialize(SerializedList);
+         //serial.serialize(SerializedList);
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -559,60 +557,36 @@ namespace Animated_Sprite_Editor
         }
 
         private void openXmlToolStripMenuItem_Click(object sender, EventArgs e)
-
-
         {
 
-            LoadFromGif();
-          
-           //Serialize serial = new Serialize();
+            List<Image> GifImages = LoadFromGif();
 
-           //FileDialog openfile = new OpenFileDialog();
+            for (int i = 0; i < GifImages.Count; i++)
+            {
+                SpriteList.Add(new PictureBox());
 
-          
+                Bitmap gifResize = resizeImage((Bitmap)GifImages[i], new Size(50, 50));
 
-           // openfile.Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*";
-
-
-           // if (openfile.ShowDialog() == DialogResult.OK)
-           // {
-           //     PicList = serial.Deserialize(openfile);
-           // }
+                SpriteList[i].Image = gifResize;
 
 
-           
+                    SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
 
+                   flowLayoutPanel1.Controls.Add(SpriteList[i]);
 
-           // SpriteSheet.Image = Image.FromFile(PicList[0].spriteImages);
-           // SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
-           // // SerializedList.Add(Image.FromFile(dlg.FileName));
-           // int j = 1;
-           // for (int i = 0; i < PicList.Count - 1; i++)
-           // {
-           //     PictureBox serializedPics = new PictureBox();
+                    Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
 
+                    MagickSprite = new MagickImage(resizeSprite);
+
+                    SpriteCollection.Add(MagickSprite);
+
+                       index++;
                 
+                 }
 
-           //     SpriteList.Add(serializedPics);
 
-           //     SpriteList[i].Image = Image.FromFile(PicList[j].spriteImages);
-
-           //     SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
-
-           //     flowLayoutPanel1.Controls.Add(SpriteList[i]);
-
-           //     Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
-
-           //     MagickSprite = new MagickImage(resizeSprite);
-
-           //     SpriteCollection.Add(MagickSprite);
-
-           //     index++;
-           //     j++;
-           // }
-
+                 flowLayoutPanel1.Refresh();
             
-           // flowLayoutPanel1.Refresh();
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -623,7 +597,7 @@ namespace Animated_Sprite_Editor
 
         }
 
-        private void LoadFromGif()
+        private List<Image> LoadFromGif()
         {
 
             FileDialog gifile = new OpenFileDialog();
@@ -641,11 +615,17 @@ namespace Animated_Sprite_Editor
 
                 List<Image> gifImages = new List<Image>();
 
-              int ok = gifImage.SelectActiveFrame(frames, 0);
 
-               
+                for (int i = 0; i < gifFrames; i++)
+                {
+                   gifImage.SelectActiveFrame(frames,i);
 
+                    gifImages.Add(new Bitmap(gifImage));
+                }
+
+                return gifImages;
             }
+            return null;
         }
     }
 
