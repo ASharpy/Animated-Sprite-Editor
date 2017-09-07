@@ -46,8 +46,6 @@ namespace Animated_Sprite_Editor
 
         public static bool deleteFile = false;
 
-        private bool refresh = false;
-
         MagickImage MagickSprite = new MagickImage();
 
         PictureBox GifPicBox = null;
@@ -59,8 +57,6 @@ namespace Animated_Sprite_Editor
         int index = 0;
 
         private List<PictureBox> SpriteList = new List<PictureBox>();
-
-        private List<PictureBox> SerializedList = new List<PictureBox>();
 
         public Form1()
         {
@@ -84,9 +80,9 @@ namespace Animated_Sprite_Editor
                 {
                     SpriteSheet.Image = Image.FromFile(dlg.FileName);
                     SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
-                    
 
-                   
+
+
                 }
             }
         }
@@ -322,7 +318,7 @@ namespace Animated_Sprite_Editor
 
             MagickSprite = new MagickImage(resizeSprite);
 
-           
+
 
             SpriteCollection.Add(MagickSprite);
 
@@ -362,7 +358,7 @@ namespace Animated_Sprite_Editor
 
                 SpriteList.Remove(SpriteList[picnum]);
 
-               // SerializedList.Remove(SerializedList[picnum]);
+                // SerializedList.Remove(SerializedList[picnum]);
 
                 sprite.Dispose();
                 index--;
@@ -456,7 +452,7 @@ namespace Animated_Sprite_Editor
                 deleteFile = false;
             }
 
-            
+
 
         }
 
@@ -527,33 +523,41 @@ namespace Animated_Sprite_Editor
 
         public void Serialize()
         {
-          
+
 
         }
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FileDialog SaveFile = new SaveFileDialog();
+            SaveFile.Filter = "Image Files (*.jpg,*.png,*.bmp)|*.jpg,*.png,*.bmp|All files (*.*)|*.*";
+            SaveFile.DefaultExt = "png";
 
+            
 
+            if (SaveFile.ShowDialog() == DialogResult.OK)
+            {
+                string pathName = Path.GetFileNameWithoutExtension(SaveFile.FileName);
 
-         //   SerializedList.Add(SpriteSheet);
+                for (int i = 0; i < SpriteList.Count; i++)
+                {
+                   string filePath = Path.Combine(Path.GetDirectoryName(SaveFile.FileName), (pathName + i + "." + SaveFile.DefaultExt));
 
-         //   for (int i = 1; i < SpriteList.Count; i++)
-         //   {
-         //       SerializedList.Add(SpriteList[i]);
-         //   }
-          
+                    SpriteList[i].Image.Save(filePath);
 
-         // Serialize serial = new Serialize();
+                    //    Serialize pic = new Serialize();
 
-          
+                    //    pic.spriteImages = filePath;
 
-         //serial.serialize(SerializedList);
+                    //    sprites.Add(pic);
+                }
+            }
         }
+
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void openXmlToolStripMenuItem_Click(object sender, EventArgs e)
@@ -570,23 +574,23 @@ namespace Animated_Sprite_Editor
                 SpriteList[i].Image = gifResize;
 
 
-                    SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
+                SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
 
-                   flowLayoutPanel1.Controls.Add(SpriteList[i]);
+                flowLayoutPanel1.Controls.Add(SpriteList[i]);
 
-                    Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
+                Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
 
-                    MagickSprite = new MagickImage(resizeSprite);
+                MagickSprite = new MagickImage(resizeSprite);
 
-                    SpriteCollection.Add(MagickSprite);
+                SpriteCollection.Add(MagickSprite);
 
-                       index++;
-                
-                 }
+                index++;
+
+            }
 
 
-                 flowLayoutPanel1.Refresh();
-            
+            flowLayoutPanel1.Refresh();
+
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -603,7 +607,7 @@ namespace Animated_Sprite_Editor
             FileDialog gifile = new OpenFileDialog();
 
             gifile.Filter = "Sprite Gif (*.gif)|*.gif";
-            
+
 
 
             if (gifile.ShowDialog() == DialogResult.OK)
@@ -618,7 +622,7 @@ namespace Animated_Sprite_Editor
 
                 for (int i = 0; i < gifFrames; i++)
                 {
-                   gifImage.SelectActiveFrame(frames,i);
+                    gifImage.SelectActiveFrame(frames, i);
 
                     gifImages.Add(new Bitmap(gifImage));
                 }
