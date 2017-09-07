@@ -19,7 +19,7 @@ namespace Animated_Sprite_Editor
         public string spriteImages;
 
 
-        public Serialize(){}
+        public Serialize() { }
 
         string pathName = Path.GetDirectoryName(Application.ExecutablePath);
 
@@ -29,7 +29,7 @@ namespace Animated_Sprite_Editor
             for (int i = 0; i < spriteList.Count; i++)
             {
 
-                filePath = Path.Combine(pathName, string.Format("image{0}.png", i));
+                filePath = Path.Combine(pathName, string.Format("image.png", i));
 
                 spriteList[i].Image.Save(filePath);
 
@@ -41,7 +41,7 @@ namespace Animated_Sprite_Editor
             }
 
 
-       
+
 
             XmlSerializer mySerializer = new XmlSerializer(typeof(List<Serialize>));
 
@@ -62,29 +62,35 @@ namespace Animated_Sprite_Editor
                 streamWriter.Close();
             }
 
-          
 
-           
+
+
         }
-        
+
 
         public List<Serialize> Deserialize(FileDialog openfile)
         {
-          
+
 
             XmlSerializer mySerializer = new XmlSerializer(typeof(List<Serialize>));
 
             StreamReader streamReader = new StreamReader(openfile.FileName);
 
-            
-                List<Serialize> spriteImages = mySerializer.Deserialize(streamReader) as List<Serialize>;
 
-                streamReader.Close();
+            List<Serialize> spriteImages = mySerializer.Deserialize(streamReader) as List<Serialize>;
 
-                return spriteImages;
-            
+            streamReader.Close();
 
-          
+            return spriteImages;
+
+
+
         }
+
+      
+
     }
+
+
+
 }

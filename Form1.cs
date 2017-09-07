@@ -13,6 +13,7 @@ using System.IO;
 using System.Security.AccessControl;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Drawing.Imaging;
 
 // select index changed
 
@@ -558,56 +559,60 @@ namespace Animated_Sprite_Editor
         }
 
         private void openXmlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-           Serialize serial = new Serialize();
 
-           FileDialog openfile = new OpenFileDialog();
+
+        {
+
+            LoadFromGif();
+          
+           //Serialize serial = new Serialize();
+
+           //FileDialog openfile = new OpenFileDialog();
 
           
 
-            openfile.Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*";
+           // openfile.Filter = "xml files (*.xml)|*.xml|All files (*.*)|*.*";
 
 
-            if (openfile.ShowDialog() == DialogResult.OK)
-            {
-                PicList = serial.Deserialize(openfile);
-            }
+           // if (openfile.ShowDialog() == DialogResult.OK)
+           // {
+           //     PicList = serial.Deserialize(openfile);
+           // }
 
 
            
 
 
-            SpriteSheet.Image = Image.FromFile(PicList[0].spriteImages);
-            SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
-            // SerializedList.Add(Image.FromFile(dlg.FileName));
-            int j = 1;
-            for (int i = 0; i < PicList.Count - 1; i++)
-            {
-                PictureBox serializedPics = new PictureBox();
+           // SpriteSheet.Image = Image.FromFile(PicList[0].spriteImages);
+           // SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
+           // // SerializedList.Add(Image.FromFile(dlg.FileName));
+           // int j = 1;
+           // for (int i = 0; i < PicList.Count - 1; i++)
+           // {
+           //     PictureBox serializedPics = new PictureBox();
 
                 
 
-                SpriteList.Add(serializedPics);
+           //     SpriteList.Add(serializedPics);
 
-                SpriteList[i].Image = Image.FromFile(PicList[j].spriteImages);
+           //     SpriteList[i].Image = Image.FromFile(PicList[j].spriteImages);
 
-                SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
+           //     SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
 
-                flowLayoutPanel1.Controls.Add(SpriteList[i]);
+           //     flowLayoutPanel1.Controls.Add(SpriteList[i]);
 
-                Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
+           //     Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
 
-                MagickSprite = new MagickImage(resizeSprite);
+           //     MagickSprite = new MagickImage(resizeSprite);
 
-                SpriteCollection.Add(MagickSprite);
+           //     SpriteCollection.Add(MagickSprite);
 
-                index++;
-                j++;
-            }
+           //     index++;
+           //     j++;
+           // }
 
             
-            flowLayoutPanel1.Refresh();
+           // flowLayoutPanel1.Refresh();
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -616,6 +621,31 @@ namespace Animated_Sprite_Editor
             SpriteSheet.Image = null;
             SpriteSheet.Refresh();
 
+        }
+
+        private void LoadFromGif()
+        {
+
+            FileDialog gifile = new OpenFileDialog();
+
+            gifile.Filter = "Sprite Gif (*.gif)|*.gif";
+            
+
+
+            if (gifile.ShowDialog() == DialogResult.OK)
+            {
+                Image gifImage = Image.FromFile(gifile.FileName);
+                FrameDimension frames = new FrameDimension(gifImage.FrameDimensionsList[0]);
+
+                int gifFrames = gifImage.GetFrameCount(frames);
+
+                List<Image> gifImages = new List<Image>();
+
+              int ok = gifImage.SelectActiveFrame(frames, 0);
+
+               
+
+            }
         }
     }
 

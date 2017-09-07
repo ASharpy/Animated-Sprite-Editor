@@ -19,7 +19,6 @@ namespace Animated_Sprite_Editor
 
         private void Animation_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form1.deleteFile = true;
 
         }
 
@@ -30,8 +29,9 @@ namespace Animated_Sprite_Editor
 
         private void Animation_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-          
+
+            Form1.deleteFile = true;
+
         }
     }
 }
