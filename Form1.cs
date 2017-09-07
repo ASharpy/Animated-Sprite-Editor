@@ -533,8 +533,6 @@ namespace Animated_Sprite_Editor
             SaveFile.Filter = "Image Files (*.jpg,*.png,*.bmp)|*.jpg,*.png,*.bmp|All files (*.*)|*.*";
             SaveFile.DefaultExt = "png";
 
-            
-
             if (SaveFile.ShowDialog() == DialogResult.OK)
             {
                 string pathName = Path.GetFileNameWithoutExtension(SaveFile.FileName);
@@ -544,12 +542,6 @@ namespace Animated_Sprite_Editor
                    string filePath = Path.Combine(Path.GetDirectoryName(SaveFile.FileName), (pathName + i + "." + SaveFile.DefaultExt));
 
                     SpriteList[i].Image.Save(filePath);
-
-                    //    Serialize pic = new Serialize();
-
-                    //    pic.spriteImages = filePath;
-
-                    //    sprites.Add(pic);
                 }
             }
         }
