@@ -72,7 +72,6 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // AddToolStripMenuItem
             // 
@@ -129,7 +128,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1354, 75);
             this.panel2.TabIndex = 5;
-            this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
             // SpriteListDelete
             // 
@@ -173,11 +171,8 @@
             this.SpriteSheet.Size = new System.Drawing.Size(1354, 547);
             this.SpriteSheet.TabIndex = 6;
             this.SpriteSheet.TabStop = false;
-            this.SpriteSheet.Click += new System.EventHandler(this.SpriteSheet_Click);
-            this.SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(this.SpriteSheet_Paint);
             this.SpriteSheet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseDown);
             this.SpriteSheet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseMove);
-            this.SpriteSheet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SpriteSheet_MouseUp);
             // 
             // timer1
             // 
@@ -212,8 +207,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Animated Sprite Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -234,7 +227,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox SpriteSheet;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.CheckBox Select;
+        private new System.Windows.Forms.CheckBox Select;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button play;
         private System.Windows.Forms.ToolStripMenuItem saveASGIFToolStripMenuItem;

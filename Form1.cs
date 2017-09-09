@@ -42,8 +42,6 @@ namespace Animated_Sprite_Editor
         // global blank rectangle to avoid the need to create multiple rectangles
         private Rectangle rect = new Rectangle(0, 0, 0, 0);
 
-        private Image SpriteGif = null;
-
         public static bool deleteFile = false;
 
         MagickImage MagickSprite = new MagickImage();
@@ -51,6 +49,8 @@ namespace Animated_Sprite_Editor
         PictureBox GifPicBox = null;
 
         Animation animation = null;
+
+        Image SpriteGif = null;
 
         MagickImageCollection SpriteCollection = new MagickImageCollection();
 
@@ -60,48 +60,18 @@ namespace Animated_Sprite_Editor
 
         public Form1()
         {
-
             InitializeComponent();
-            SpriteSheet.Paint += new System.Windows.Forms.PaintEventHandler(SpriteSheet_Paint);
         }
 
         /* 
            Loads an image from a file only accepts BMP,JPG,GIF and PNG's. Sets the picture box's image to the image loaded in 
            no returns      
         */
-        private void AddSpriteSheet()
-        {
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
-                dlg.Title = "Sprite Sheet";
-                dlg.Filter = "Image Files(*.BMP;*.JPG;*.PNG;)|*.BMP;*.JPG;*.PNG|All files (*.*)|*.*";
-
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    SpriteSheet.Image = Image.FromFile(dlg.FileName);
-                    SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
-
-                }
-            }
-        }
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         // calls the add sprite sheet function when the add menu button is clicked
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddSpriteSheet();
-        }
-
-        private void SpriteSheet_Click(object sender, EventArgs e)
-        {
-
         }
 
         /*
@@ -117,10 +87,7 @@ namespace Animated_Sprite_Editor
                 SpriteSheet.Image = OrigSpriteSheet;
                 SpriteSheet.Refresh();
 
-                // SpriteSheet.Image = null;
-
             }
-
 
             if (e.Button == MouseButtons.Left)
             {
@@ -128,15 +95,7 @@ namespace Animated_Sprite_Editor
                 if (SpriteSheet.Image != null)
                 {
 
-
-
                     OrigSpriteSheet = new Bitmap(SpriteSheet.Image);
-
-
-
-
-
-
 
                     selectedArea = false;
 
@@ -173,9 +132,6 @@ namespace Animated_Sprite_Editor
         //if the mouse is moving and the left mouse button is being pressed in draw a rectangle based on the starting mouse position and the current mouse position
         private void SpriteSheet_MouseMove(object sender, MouseEventArgs e)
         {
-
-
-
             if (Select.Checked == true)
             {
 
@@ -217,40 +173,8 @@ namespace Animated_Sprite_Editor
 
 
         // resets the rectangle when the mouse is released
-        private void SpriteSheet_MouseUp(object sender, MouseEventArgs e)
-        {
-
-        }
-
-
-        private void SpriteSheet_Paint(object sender, PaintEventArgs e)
-        {
-
-
-            if (startPoint.X > 0 && startPoint.Y > 0 && endPoint.X > 0 && endPoint.Y > 0)
-            {
-
-            }
-
-
-
-        }
-
-        private void panel2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Select_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void copyImage(Rectangle imageRect)
         {
-
-
-
             int X = Math.Abs(endPoint.X - startPoint.X);
 
 
@@ -267,30 +191,6 @@ namespace Animated_Sprite_Editor
             Clipboard.SetImage(bm);
         }
 
-
-        private Rectangle makeRectangle(Point Point1, Point Point2)
-        {
-            return new Rectangle(Math.Min(Point1.X, Point2.X), Math.Min(Point1.Y, Point2.Y),
-                Math.Abs(Point1.X - Point2.X), Math.Abs(Point1.Y - Point2.Y));
-        }
-
-        private Point MousePos()
-        {
-            Point controlrelative = SpriteSheet.PointToClient(MousePosition);
-
-            Size imageSize = SpriteSheet.Image.Size;
-
-            Size PicBoxSize = SpriteSheet.Size;
-
-
-            float X = ((float)imageSize.Width / (float)PicBoxSize.Width) * controlrelative.X;
-
-            float Y = ((float)imageSize.Height / (float)PicBoxSize.Height) * controlrelative.Y;
-
-
-            return new Point(Math.Abs((int)X), Math.Abs((int)Y));
-        }
-
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
             PictureBox spritepic = new PictureBox();
@@ -299,50 +199,32 @@ namespace Animated_Sprite_Editor
 
             flowLayoutPanel1.Controls.Add(SpriteList[index]);
 
-            //Debug.WriteLine(sender.ToString());
-
-
-
             Bitmap sprite = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
 
-            Bitmap resizeSprite = resizeImage(sprite, new Size(200, 200));
+            Bitmap resizeSprite = resizeImage(sprite, new Size(50, 50));
 
+            SpriteList[index].Width = resizeSprite.Size.Width;
 
-            SpriteList[index].Width = sprite.Size.Width;
+            SpriteList[index].Height = resizeSprite.Size.Height;
 
-            SpriteList[index].Height = sprite.Size.Height;
-
-            SpriteList[index].Image = sprite;
+            SpriteList[index].Image = resizeSprite;
 
             SpriteList[index].MouseDown += new MouseEventHandler(sprite_MouseDown);
 
-            MagickSprite = new MagickImage(resizeSprite);
-
-
+            MagickSprite = new MagickImage(sprite);
 
             SpriteCollection.Add(MagickSprite);
 
-
-
-            sprite = resizeSprite;
+           // sprite = resizeSprite;
 
             sprite.Dispose();
-            resizeSprite.Dispose();
-
+           // resizeSprite.Dispose();
 
             index++;
-
-
-
-
-            // picBox.BorderStyle = BorderStyle.Fixed3D;
         }
-
 
         private void sprite_MouseDown(object sender, MouseEventArgs e)
         {
-
-
             if (e.Button == MouseButtons.Right)
             {
                 PictureBox sprite = (PictureBox)sender;
@@ -358,19 +240,13 @@ namespace Animated_Sprite_Editor
 
                 SpriteList.Remove(SpriteList[picnum]);
 
-                // SerializedList.Remove(SerializedList[picnum]);
+
 
                 sprite.Dispose();
                 index--;
             }
 
-
-
-
-
         }
-
-
 
         private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
         {
@@ -399,16 +275,9 @@ namespace Animated_Sprite_Editor
 
                 animation = new Animation();
 
-
-                // SpriteCollection.Optimize();
-
-
-
-
-
                 GifPicBox.Width = animation.Width;
                 GifPicBox.Height = animation.Height;
-                // animated.BackColor = Color.Black;
+
 
                 for (int i = 0; i < SpriteCollection.Count; i++)
                 {
@@ -417,23 +286,33 @@ namespace Animated_Sprite_Editor
 
                 SpriteCollection.Write(@".\megaman.gif");
 
-                //  SpriteCollection.Optimize();
+
 
                 animation.Controls.Add(GifPicBox);
 
-                SpriteGif = Image.FromFile(@".\megaman.gif");
+
+
+              SpriteGif = Image.FromFile(@".\megaman.gif"); 
 
 
                 GifPicBox.Image = SpriteGif;
 
+                GifPicBox.Width = GifPicBox.Image.Width;
+
+                GifPicBox.Height = GifPicBox.Image.Height;
+
+                animation.Width = GifPicBox.Image.Width;
+
+                animation.Height = GifPicBox.Image.Height;
 
                 animation.Show();
 
+              
 
             }
+
+           
         }
-
-
 
         private Bitmap resizeImage(Bitmap image, Size size)
         {
@@ -458,29 +337,11 @@ namespace Animated_Sprite_Editor
 
         private void SpriteListDelete_Click(object sender, EventArgs e)
         {
-
-            SpriteCollection.Dispose();
-
-            index = 0;
-
-            for (int i = 0; i < SpriteList.Count; i++)
-            {
-                SpriteList[i].Dispose();
-            }
-
-
-            SpriteList.Clear();
-            flowLayoutPanel1.Refresh();
-
-
+            deleteSpriteList();
         }
 
         private void saveASGIFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            //Saving the file to the user location
-
-
 
             FileDialog saveFile = new SaveFileDialog();
             saveFile.Filter = saveFile.Filter = "gif files (*.gif)|*.gif|All files (*.*)|*.*";
@@ -497,34 +358,9 @@ namespace Animated_Sprite_Editor
 
                 string fN = Path.GetFileName(filename);
 
-
-
-
-
                 SpriteCollection.Write(filename + ".gif");
 
-
-                // saveFile.Dispose();
-
-
-
-                //File.Delete(saveFile.FileName);
-
-                //saveFile.FileName = null;
-
             }
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-
-        }
-
-        public void Serialize()
-        {
-
-
         }
 
         private void saveImagesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -539,24 +375,23 @@ namespace Animated_Sprite_Editor
 
                 for (int i = 0; i < SpriteList.Count; i++)
                 {
-                   string filePath = Path.Combine(Path.GetDirectoryName(SaveFile.FileName), (pathName + i + "." + SaveFile.DefaultExt));
+                    string filePath = Path.Combine(Path.GetDirectoryName(SaveFile.FileName), (pathName + i + "." + SaveFile.DefaultExt));
 
-                    SpriteList[i].Image.Save(filePath);
+                    SpriteCollection[i].Write(filePath);
                 }
             }
         }
 
-
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void openXmlToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
 
             List<Image> GifImages = LoadFromGif();
 
+            if (SpriteList.Count > 0)
+            {
+                deleteSpriteList();
+            }
             for (int i = 0; i < GifImages.Count; i++)
             {
                 SpriteList.Add(new PictureBox());
@@ -570,9 +405,9 @@ namespace Animated_Sprite_Editor
 
                 flowLayoutPanel1.Controls.Add(SpriteList[i]);
 
-                Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
+               // Bitmap resizeSprite = resizeImage((Bitmap)SpriteList[i].Image, new Size(200, 200));
 
-                MagickSprite = new MagickImage(resizeSprite);
+                MagickSprite = new MagickImage((Bitmap)GifImages[i]);
 
                 SpriteCollection.Add(MagickSprite);
 
@@ -600,8 +435,6 @@ namespace Animated_Sprite_Editor
 
             gifile.Filter = "Sprite Gif (*.gif)|*.gif";
 
-
-
             if (gifile.ShowDialog() == DialogResult.OK)
             {
                 Image gifImage = Image.FromFile(gifile.FileName);
@@ -623,8 +456,64 @@ namespace Animated_Sprite_Editor
             }
             return null;
         }
+
+        private void AddSpriteSheet()
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Title = "Sprite Sheet";
+                dlg.Filter = "Image Files(*.BMP;*.JPG;*.PNG;)|*.BMP;*.JPG;*.PNG|All files (*.*)|*.*";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    SpriteSheet.Image = Image.FromFile(dlg.FileName);
+                    SpriteSheet.SizeMode = PictureBoxSizeMode.StretchImage;
+
+
+
+                }
+            }
+        }
+
+        private Rectangle makeRectangle(Point Point1, Point Point2)
+        {
+            return new Rectangle(Math.Min(Point1.X, Point2.X), Math.Min(Point1.Y, Point2.Y),
+                Math.Abs(Point1.X - Point2.X), Math.Abs(Point1.Y - Point2.Y));
+        }
+
+        private Point MousePos()
+        {
+            Point controlrelative = SpriteSheet.PointToClient(MousePosition);
+
+            Size imageSize = SpriteSheet.Image.Size;
+
+            Size PicBoxSize = SpriteSheet.Size;
+
+
+            float X = ((float)imageSize.Width / (float)PicBoxSize.Width) * controlrelative.X;
+
+            float Y = ((float)imageSize.Height / (float)PicBoxSize.Height) * controlrelative.Y;
+
+
+            return new Point(Math.Abs((int)X), Math.Abs((int)Y));
+        }
+
+        private void deleteSpriteList()
+        {
+         
+            SpriteCollection.Dispose();
+
+            index = 0;
+
+            for (int i = 0; i < SpriteList.Count; i++)
+            {
+                SpriteList[i].Dispose();
+            }
+
+
+            SpriteList.Clear();
+            flowLayoutPanel1.Refresh();
+        }
+
     }
-
-
-
 }
