@@ -15,7 +15,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Drawing.Imaging;
 
-// select index changed
 
 namespace Animated_Sprite_Editor
 {
